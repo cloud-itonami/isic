@@ -1,5 +1,7 @@
 # ISIC Industry Coordinator
 
+**Repository**: `cloud-itonami/isic`
+
 Standalone actor repository for the complete **UN ISIC Rev.4** classification
 mirror: industries across the 4-level hierarchy (section → division →
 group → class).
@@ -10,12 +12,12 @@ group → class).
 - `wire/`: external JSON, JSON-LD, BPMN, and sample payloads
 - `src/isic/coordinator.clj`: kotoba-clj coordinator source
 
-## Authority, not duplicate
+## Catalog and actor boundary
 
-This is the **taxonomy authority mirror** (sibling of `isco`/`unspsc`/`gtin`).
-`cloud-itonami`'s per-code business blueprints (`cloud-itonami-isic-*`) consume
-it; migrating it to cloud-itonami would invert the dependency.
-See ADR-2607261601 §4(a).
+This repository owns industry lookup and materialization workflows. The
+machine-readable source catalog is `cloud-itonami/org-un-isic`, while per-code
+business blueprints live in the `cloud-itonami-isic-*` family. The historical
+ISIC DID and protocol namespaces remain compatibility identities.
 
 ## Status
 

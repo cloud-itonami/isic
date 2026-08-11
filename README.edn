@@ -1,0 +1,6 @@
+{:repo/id "cloud-itonami/isic"
+ :repo/plane :role
+ :repo/role :industry-classification-coordinator
+ :repo/catalog "cloud-itonami/org-un-isic"
+ :repo/consumer-family "cloud-itonami-isic-*"
+ :repo/compatibility-identities ["did:web:isic.etzhayyim.com"]}

@@ -2,7 +2,7 @@
  :display-name "ISIC Industry Coordinator"
  :taxonomy "UN-ISIC-Rev.4"
  :status "R0-scaffold"
- :sibling-of ["com-etzhayyim-isco" "com-etzhayyim-unspsc" "com-etzhayyim-gtin"]
+ :sibling-of ["cloud-itonami/isco" "cloud-itonami/unspsc" "cloud-itonami/action-gtin-registry"]
  ;; R0: taxonomy ingest into data/ pending. Pipelines (summarize/social/health)
  ;; will be added once the industry hierarchy is materialized, mirroring isco.
  :pipelines []}

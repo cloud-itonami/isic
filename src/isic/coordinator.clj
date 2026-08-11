@@ -1,3 +1,5 @@
+(ns isic.coordinator)
+
 ;; ISIC Industry Coordinator cell
 ;; kotoba-clj port — R0 scaffold (modes mirror com-etzhayyim-isco)
 ;; modes: 0=lookup 1=summarize 2=coverage 3=parent 4=children 5=materialize 6=ratio
@@ -14,7 +16,7 @@
   (assoc state "result" "NOT-FOUND-R0"))
 
 (defn coordinator [state]
-  (case (get state "mode" 0)
+  (case (get state "mode" (get state :mode 0))
     0 (lookup state)
     1 (summarize state)
     (noop state)))
