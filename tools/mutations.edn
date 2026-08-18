@@ -1,0 +1,61 @@
+;; One mutation per invariant. `:find` must occur EXACTLY ONCE in `:file` —
+;; `tools/mutate.cljs` refuses otherwise, because a mutation that landed in a
+;; comment or a second call site produces a red suite that proves nothing.
+;;
+;; ## SCOPE
+;;
+;; Covers the 2026-08-18 `.clj` → `.cljc` conversion of `isic.coordinator`:
+;; that the R0 sentinel is the sentinel, that `noop` really is identity, that
+;; the mode is read under BOTH the string and the keyword key, and that the
+;; default mode is 0. It does NOT cover the taxonomy this cell will one day
+;; resolve against — there is none yet — so a clean run of this table means
+;; "the scaffold's routing is measured" and NOT "this cell is measured".
+;;
+;; ⚠ These mutations run `clojure -M:test`. The `:cljs` half is exercised by
+;; `test/run_portable.cljs`, which this harness does not drive. For THIS
+;; namespace the two halves are the same bytes — there is not one reader
+;; conditional in it — so a mutation cannot redden one and not the other.
+;; That is a property of this file, not a general one; do not carry the
+;; assumption to a namespace that does branch.
+;;
+;; ## MEASURED 2026-08-18: 5 mutations, 4 killed, 1 SURVIVED.
+;;
+;; `:mode-1-routes-to-summarize-and-not-lookup` survives and is left in the
+;; table. It is not a test gap that anyone can close today: `lookup` and
+;; `summarize` both answer the same `NOT-FOUND-R0` sentinel at R0, so from
+;; outside this cell the two modes are indistinguishable, and a test that
+;; told them apart would be measuring the implementation rather than the
+;; contract. Deleting the mutation would hide that. It becomes killable the
+;; moment either mode returns an answer of its own.
+[{:id :lookup-answers-the-r0-sentinel
+  :invariant "lookup reports NOT-FOUND-R0 until taxonomy ingest lands"
+  :file "src/isic/coordinator.cljc"
+  :find "  (assoc state \"result\" \"NOT-FOUND-R0\"))\n\n(defn summarize"
+  :replace "  (assoc state \"result\" \"FOUND\"))\n\n(defn summarize"}
+
+ {:id :noop-does-not-stamp-the-state
+  :invariant "an unrecognised mode returns the state UNCHANGED"
+  :file "src/isic/coordinator.cljc"
+  :find "  [state]\n  state)"
+  :replace "  [state]\n  (assoc state \"result\" \"NOT-FOUND-R0\"))"}
+
+ {:id :the-keyword-mode-key-is-read
+  :invariant "`:mode` and \"mode\" are both honoured; EDN callers are not
+              silently demoted to mode 0"
+  :file "src/isic/coordinator.cljc"
+  :find "(get state \"mode\" (get state :mode 0))"
+  :replace "(get state \"mode\" 0)"}
+
+ {:id :the-default-mode-is-lookup
+  :invariant "state naming no mode at all routes to 0/lookup"
+  :file "src/isic/coordinator.cljc"
+  :find "(get state :mode 0))"
+  :replace "(get state :mode 99))"}
+
+ ;; Written before the tests, and expected by nobody to be interesting:
+ ;; recorded because it turned out to be. See the note in the test file.
+ {:id :mode-1-routes-to-summarize-and-not-lookup
+  :invariant "mode 1 is a DIFFERENT mode from mode 0"
+  :file "src/isic/coordinator.cljc"
+  :find "    1 (summarize state)"
+  :replace "    1 (lookup state)"}]
