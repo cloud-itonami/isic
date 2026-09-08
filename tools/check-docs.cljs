@@ -47,7 +47,7 @@
 
   Exit: 0 clean / 1 findings / 2 refused to answer."
   (:require ["node:fs" :as fs]
-            [clojure.string :as str]))
+            [kotoba.lang.text :as str]))
 
 (def docs
   "The files an operator is told to read. Both must exist — dropping one and
@@ -78,7 +78,7 @@
 
   ClojureScript's reader hoists `(?s)` out of the pattern into the RegExp's
   `s` FLAG — `#\"(?s)a(.*?)b\"` has source `a(.*?)b` and flags `s`.
-  `clojure.string/replace` then rebuilds the RegExp from `.source`, carrying
+  `str/replace` then rebuilds the RegExp from `.source`, carrying
   only `g`, `i` and `m`. `s` is dropped, `.` stops crossing newlines, and a
   multi-line region silently matches nothing:
 
