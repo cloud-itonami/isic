@@ -15,7 +15,7 @@
 
   The conversion is therefore the file extension and nothing else: there is
   not one reader conditional in this namespace, because there is not one
-  construct that differs between the two. `test/run_portable.cljs` is what
+  construct that differs between the two. `test/run_portable.cljk` is what
   makes that a measurement instead of a claim.")
 
 (defn noop

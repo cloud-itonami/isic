@@ -3,7 +3,7 @@
 Every command below was executed on 2026-09-06 and is recorded with the
 output it actually produced. The source under test is `f2572c5` unchanged —
 the commit adding this file touches only documentation and
-`tools/check-docs.cljs`. If a command here does not run for you, that is a
+`tools/check-docs.cljk`. If a command here does not run for you, that is a
 defect in this file, not in your setup — see *Keeping this file honest* at
 the end.
 
@@ -31,7 +31,7 @@ workspace puts it below nbb on purpose (ADR-2607173000).
 ## 1. Run the portable suite (no JVM, no build step)
 
 ```sh
-nbb --classpath src:test test/run_portable.cljs
+nbb --classpath src:test test/run_portable.cljk
 ```
 
 ```
@@ -42,14 +42,14 @@ Ran 9 tests containing 13 assertions.
 ```
 
 Exit status `0`. This is the whole point of the namespace being `.cljc`:
-`src/isic/coordinator.cljc` contains **no reader conditionals**, so "it is
+`src/isic/coordinator.cljk` contains **no reader conditionals**, so "it is
 portable" is only true if something has actually loaded it under
 ClojureScript. This runner is that something.
 
 ## 2. Run it from somewhere that is not this repo
 
 ```sh
-cd /tmp && nbb --classpath <repo>/src:<repo>/test <repo>/test/run_portable.cljs
+cd /tmp && nbb --classpath <repo>/src:<repo>/test <repo>/test/run_portable.cljk
 ```
 
 Same `Ran 9 tests containing 13 assertions. 0 failures, 0 errors.`, exit `0`.
@@ -101,7 +101,7 @@ A suite that has never gone red is a suite nobody has measured, so the repo
 carries its own mutation table. Check it before spending minutes on it:
 
 ```sh
-nbb tools/check-mutations.cljs
+nbb tools/check-mutations.cljk
 ```
 
 ```
@@ -113,8 +113,8 @@ Then run the mutations. Each one is applied to a source file, `clojure -M:test`
 is run, and the file is restored:
 
 ```sh
-nbb tools/mutate.cljs           # the whole table
-nbb tools/mutate.cljs :noop-does-not-stamp-the-state   # one, by id
+nbb tools/mutate.cljk           # the whole table
+nbb tools/mutate.cljk :noop-does-not-stamp-the-state   # one, by id
 ```
 
 **Expect one survivor.** `:mode-1-routes-to-summarize-and-not-lookup` is not
@@ -125,16 +125,16 @@ deleted, and it becomes killable the moment either mode returns an answer of
 its own. A run reporting **4 killed, 1 survived** is the expected result; a
 run reporting 5 killed means someone gave mode 1 an answer and should say so.
 
-Note the exit status: `nbb tools/mutate.cljs` exits **1** while that survivor
+Note the exit status: `nbb tools/mutate.cljk` exits **1** while that survivor
 is in the table, because a survivor is a finding about the suite. On this
 repo today that `1` is the *expected* status, so do not wire this command into
 a gate that reads a non-zero exit as breakage.
 
-`tools/mutate.cljs` restores the file in a `finally` and on
+`tools/mutate.cljk` restores the file in a `finally` and on
 SIGINT/SIGTERM/SIGHUP. That is best-effort by construction — `kill -9` runs no
 user code. If a run is killed hard, check `git status` for a stray
 <!-- check-docs:ignore-start naming the stray file you must look for; it must NOT exist -->
-`src/isic/coordinator.cljc.orig`
+`src/isic/coordinator.cljk.orig`
 <!-- check-docs:ignore-end -->
 before doing anything else.
 
@@ -142,12 +142,12 @@ before doing anything else.
 
 | path | what it is |
 |---|---|
-| `src/isic/coordinator.cljc` | the cell. Modes: 0 lookup, 1 summarize, others → `noop` |
-| `test/isic/coordinator_test.cljc` | the portable suite, run by both runners above |
-| `test/run_portable.cljs` | the nbb entry point |
+| `src/isic/coordinator.cljk` | the cell. Modes: 0 lookup, 1 summarize, others → `noop` |
+| `test/isic/coordinator_test.cljk` | the portable suite, run by both runners above |
+| `test/run_portable.cljk` | the nbb entry point |
 | `tools/mutations.edn` | one mutation per invariant, with the survivor documented |
-| `tools/mutate.cljs` | applies them, to prove the suite can fail |
-| `tools/check-docs.cljs` | resolves every path these two docs name |
+| `tools/mutate.cljk` | applies them, to prove the suite can fail |
+| `tools/check-docs.cljk` | resolves every path these two docs name |
 | `deps.edn` | the `:test` and `:lint` aliases |
 | `manifest.edn` | actor metadata; `:pipelines` is empty at R0 |
 | `identity.edn` | `did:web:isic.etzhayyim.com` (a compatibility identity) |
@@ -174,7 +174,7 @@ after which the coverage claims must be source-cited (charter gate in
 Every path and command named above is checked by:
 
 ```sh
-nbb tools/check-docs.cljs
+nbb tools/check-docs.cljk
 ```
 
 It reads `README.md` and this file, resolves every repo path they name, and
