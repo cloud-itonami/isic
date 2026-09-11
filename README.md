@@ -25,12 +25,12 @@ does not mean this cell resolves ISIC codes.
 
 | path | what it is |
 |---|---|
-| `src/isic/coordinator.cljc` | the coordinator cell |
-| `test/isic/coordinator_test.cljc` | the portable suite |
-| `test/run_portable.cljs` | nbb entry point — runs the suite without a JVM |
+| `src/isic/coordinator.cljk` | the coordinator cell |
+| `test/isic/coordinator_test.cljk` | the portable suite |
+| `test/run_portable.cljk` | nbb entry point — runs the suite without a JVM |
 | `tools/mutations.edn` | one mutation per invariant, with the survivor documented |
-| `tools/mutate.cljs` | applies them, to prove the suite can fail |
-| `tools/check-docs.cljs` | resolves every path these docs name |
+| `tools/mutate.cljk` | applies them, to prove the suite can fail |
+| `tools/check-docs.cljk` | resolves every path these docs name |
 | `deps.edn` | the `:test` and `:lint` aliases |
 | `manifest.edn`, `identity.edn`, `README.edn` | canonical repository metadata |
 | `data/` | **empty at R0** — the ISIC Rev.4 hierarchy goes here |
@@ -40,10 +40,10 @@ does not mean this cell resolves ISIC codes.
 ## Verifying it
 
 ```sh
-nbb --classpath src:test test/run_portable.cljs   # portable suite, no JVM
+nbb --classpath src:test test/run_portable.cljk   # portable suite, no JVM
 clojure -M:test                                   # same suite on the JVM
 clojure -M:lint                                   # clj-kondo, --fail-level error
-nbb tools/check-docs.cljs                         # the docs point at real things
+nbb tools/check-docs.cljk                         # the docs point at real things
 ```
 
 `docs/operator-quickstart.md` walks these with their expected output, and

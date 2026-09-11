@@ -1,5 +1,5 @@
 ;; One mutation per invariant. `:find` must occur EXACTLY ONCE in `:file` —
-;; `tools/mutate.cljs` refuses otherwise, because a mutation that landed in a
+;; `tools/mutate.cljk` refuses otherwise, because a mutation that landed in a
 ;; comment or a second call site produces a red suite that proves nothing.
 ;;
 ;; ## SCOPE
@@ -12,7 +12,7 @@
 ;; "the scaffold's routing is measured" and NOT "this cell is measured".
 ;;
 ;; ⚠ These mutations run `clojure -M:test`. The `:cljs` half is exercised by
-;; `test/run_portable.cljs`, which this harness does not drive. For THIS
+;; `test/run_portable.cljk`, which this harness does not drive. For THIS
 ;; namespace the two halves are the same bytes — there is not one reader
 ;; conditional in it — so a mutation cannot redden one and not the other.
 ;; That is a property of this file, not a general one; do not carry the
@@ -29,26 +29,26 @@
 ;; moment either mode returns an answer of its own.
 [{:id :lookup-answers-the-r0-sentinel
   :invariant "lookup reports NOT-FOUND-R0 until taxonomy ingest lands"
-  :file "src/isic/coordinator.cljc"
+  :file "src/isic/coordinator.cljk"
   :find "  (assoc state \"result\" \"NOT-FOUND-R0\"))\n\n(defn summarize"
   :replace "  (assoc state \"result\" \"FOUND\"))\n\n(defn summarize"}
 
  {:id :noop-does-not-stamp-the-state
   :invariant "an unrecognised mode returns the state UNCHANGED"
-  :file "src/isic/coordinator.cljc"
+  :file "src/isic/coordinator.cljk"
   :find "  [state]\n  state)"
   :replace "  [state]\n  (assoc state \"result\" \"NOT-FOUND-R0\"))"}
 
  {:id :the-keyword-mode-key-is-read
   :invariant "`:mode` and \"mode\" are both honoured; EDN callers are not
               silently demoted to mode 0"
-  :file "src/isic/coordinator.cljc"
+  :file "src/isic/coordinator.cljk"
   :find "(get state \"mode\" (get state :mode 0))"
   :replace "(get state \"mode\" 0)"}
 
  {:id :the-default-mode-is-lookup
   :invariant "state naming no mode at all routes to 0/lookup"
-  :file "src/isic/coordinator.cljc"
+  :file "src/isic/coordinator.cljk"
   :find "(get state :mode 0))"
   :replace "(get state :mode 99))"}
 
@@ -56,6 +56,6 @@
  ;; recorded because it turned out to be. See the note in the test file.
  {:id :mode-1-routes-to-summarize-and-not-lookup
   :invariant "mode 1 is a DIFFERENT mode from mode 0"
-  :file "src/isic/coordinator.cljc"
+  :file "src/isic/coordinator.cljk"
   :find "    1 (summarize state)"
   :replace "    1 (lookup state)"}]

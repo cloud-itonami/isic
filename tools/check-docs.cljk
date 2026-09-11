@@ -9,7 +9,7 @@
   pointed at a test file that is not in the tree, named the coordinator with
   the wrong extension, and referred twice to a `dependencies.edn` that does
   not exist. None of it was caught, because prose has no exit status. The
-  suite next door proves it can fail (`tools/mutate.cljs`); the docs could
+  suite next door proves it can fail (`tools/mutate.cljk`); the docs could
   not. The retired runner was even still on PATH, so the documented command
   got far enough to fail with `File does not exist`, which reads like a
   broken checkout rather than a broken README.
