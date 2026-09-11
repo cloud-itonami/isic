@@ -31,7 +31,7 @@ workspace puts it below nbb on purpose (ADR-2607173000).
 ## 1. Run the portable suite (no JVM, no build step)
 
 ```sh
-nbb --classpath src:test test/run_portable.cljk
+kbb --backend sci --classpath src:test test/run_portable.cljk
 ```
 
 ```
@@ -49,7 +49,7 @@ ClojureScript. This runner is that something.
 ## 2. Run it from somewhere that is not this repo
 
 ```sh
-cd /tmp && nbb --classpath <repo>/src:<repo>/test <repo>/test/run_portable.cljk
+cd /tmp && kbb --backend sci --classpath <repo>/src:<repo>/test <repo>/test/run_portable.cljk
 ```
 
 Same `Ran 9 tests containing 13 assertions. 0 failures, 0 errors.`, exit `0`.
@@ -61,7 +61,7 @@ suite run only from the repo root cannot tell you whether it does.
 ## 3. Run the JVM suite
 
 ```sh
-clojure -M:test
+kbb -M:test
 ```
 
 ```
@@ -81,7 +81,7 @@ a reader conditional here.
 ## 4. Lint
 
 ```sh
-clojure -M:lint
+kbb -M:lint
 ```
 
 ```
@@ -101,7 +101,7 @@ A suite that has never gone red is a suite nobody has measured, so the repo
 carries its own mutation table. Check it before spending minutes on it:
 
 ```sh
-nbb tools/check-mutations.cljk
+kbb --backend sci tools/check-mutations.cljk
 ```
 
 ```
@@ -109,12 +109,12 @@ SCANNED	5 mutations
 all find strings occur exactly once
 ```
 
-Then run the mutations. Each one is applied to a source file, `clojure -M:test`
+Then run the mutations. Each one is applied to a source file, `kbb -M:test`
 is run, and the file is restored:
 
 ```sh
-nbb tools/mutate.cljk           # the whole table
-nbb tools/mutate.cljk :noop-does-not-stamp-the-state   # one, by id
+kbb --backend sci tools/mutate.cljk           # the whole table
+kbb --backend sci tools/mutate.cljk :noop-does-not-stamp-the-state   # one, by id
 ```
 
 **Expect one survivor.** `:mode-1-routes-to-summarize-and-not-lookup` is not
@@ -125,7 +125,7 @@ deleted, and it becomes killable the moment either mode returns an answer of
 its own. A run reporting **4 killed, 1 survived** is the expected result; a
 run reporting 5 killed means someone gave mode 1 an answer and should say so.
 
-Note the exit status: `nbb tools/mutate.cljk` exits **1** while that survivor
+Note the exit status: `kbb --backend sci tools/mutate.cljk` exits **1** while that survivor
 is in the table, because a survivor is a finding about the suite. On this
 repo today that `1` is the *expected* status, so do not wire this command into
 a gate that reads a non-zero exit as breakage.
@@ -174,7 +174,7 @@ after which the coverage claims must be source-cited (charter gate in
 Every path and command named above is checked by:
 
 ```sh
-nbb tools/check-docs.cljk
+kbb --backend sci tools/check-docs.cljk
 ```
 
 It reads `README.md` and this file, resolves every repo path they name, and
@@ -183,7 +183,7 @@ version of `README.md` told operators to run
 
 <!-- check-docs:ignore-start quoting the pre-2026-09-06 README; these are the defects, not instructions -->
 ```sh
-bb -cp src:test run_tests.clj    # File does not exist: run_tests.clj
+kbb -cp src:test run_tests.clj    # File does not exist: run_tests.clj
 ```
 
 and named `src/isic/coordinator.clj` and `dependencies.edn`, neither of which
