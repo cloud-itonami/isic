@@ -40,10 +40,10 @@ does not mean this cell resolves ISIC codes.
 ## Verifying it
 
 ```sh
-nbb --classpath src:test test/run_portable.cljk   # portable suite, no JVM
-clojure -M:test                                   # same suite on the JVM
-clojure -M:lint                                   # clj-kondo, --fail-level error
-nbb tools/check-docs.cljk                         # the docs point at real things
+kbb --backend sci --classpath src:test test/run_portable.cljk   # portable suite, no JVM
+kbb -M:test                                   # same suite on the JVM
+kbb -M:lint                                   # clj-kondo, --fail-level error
+kbb --backend sci tools/check-docs.cljk                         # the docs point at real things
 ```
 
 `docs/operator-quickstart.md` walks these with their expected output, and

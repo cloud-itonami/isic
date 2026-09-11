@@ -11,7 +11,7 @@
 ;; resolve against — there is none yet — so a clean run of this table means
 ;; "the scaffold's routing is measured" and NOT "this cell is measured".
 ;;
-;; ⚠ These mutations run `clojure -M:test`. The `:cljs` half is exercised by
+;; ⚠ These mutations run `kbb -M:test`. The `:cljs` half is exercised by
 ;; `test/run_portable.cljk`, which this harness does not drive. For THIS
 ;; namespace the two halves are the same bytes — there is not one reader
 ;; conditional in it — so a mutation cannot redden one and not the other.
