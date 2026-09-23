@@ -1,5 +1,5 @@
 (ns isic.coordinator-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [isic.coordinator :as c]))
 
 (deftest noop-test

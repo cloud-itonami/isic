@@ -4,3 +4,4 @@ target/
 *.class
 .shadow-cljs/
 node_modules/
+.nbb/
