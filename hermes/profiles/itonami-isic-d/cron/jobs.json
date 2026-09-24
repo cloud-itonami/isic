@@ -7,11 +7,11 @@
       "enabled": true,
       "enabled_toolsets": null,
       "id": "8bb3fe44f041",
-      "model": "qwen3.8-27b-whitehacker",
+      "model": "murakumo/free",
       "name": "itonami-isic-d-scout",
       "no_agent": false,
       "prompt": "Read SOUL.md. If the evidence script printed no THROTTLED/[SILENT] banner, report ONE finding per the report format: propose at most one migration slice for the frontier actor, written to workspace/slices/ and gated via amu check --jvm-free. Do not merge or force-push.",
-      "provider": "kotoba",
+      "provider": "murakumo",
       "schedule": {
         "kind": "cron",
         "expr": "12 20 * * *",
