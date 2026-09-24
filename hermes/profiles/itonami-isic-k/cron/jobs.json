@@ -1,0 +1,26 @@
+{
+  "jobs": [
+    {
+      "base_url": null,
+      "context_from": null,
+      "deliver": "local",
+      "enabled": true,
+      "enabled_toolsets": null,
+      "id": "06349030478d",
+      "model": "qwen3.8-27b-whitehacker",
+      "name": "itonami-isic-k-scout",
+      "no_agent": false,
+      "prompt": "Read SOUL.md. If the evidence script printed no THROTTLED/[SILENT] banner, report ONE finding per the report format: propose at most one migration slice for the frontier actor, written to workspace/slices/ and gated via amu check --jvm-free. Do not merge or force-push.",
+      "provider": "kotoba",
+      "schedule": {
+        "kind": "cron",
+        "expr": "19 8 * * *",
+        "display": "19 8 * * *"
+      },
+      "script": "isicK_evidence.py",
+      "skill": null,
+      "skills": [],
+      "workdir": "~/github/com-junkawasaki"
+    }
+  ]
+}
