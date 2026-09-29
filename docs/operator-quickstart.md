@@ -159,7 +159,7 @@ before doing anything else.
 - **Look up an ISIC code.** `data/` holds only `.gitkeep`; `lookup` answers
   `NOT-FOUND-R0` by design, and the test suite asserts exactly that.
 - **Run modes 2–6.** `coverage`/`parent`/`children`/`materialize`/`ratio` are
-  named in the namespace docstring and in `CLAUDE.md`, mirroring
+  named in the namespace docstring and in `AGENTS.md`, mirroring
   `cloud-itonami/isco`. Only modes 0 and 1 are routed; everything else
   reaches `noop` deliberately and returns your state untouched. (They are
   *not* named in `manifest.edn`, whose `:pipelines` is empty.)
@@ -167,7 +167,7 @@ before doing anything else.
 
 The next real step for this repo is ingesting UN ISIC Rev.4 into `data/`,
 after which the coverage claims must be source-cited (charter gate in
-`CLAUDE.md`) and the surviving mutation becomes killable.
+`AGENTS.md`) and the surviving mutation becomes killable.
 
 ## Keeping this file honest
 

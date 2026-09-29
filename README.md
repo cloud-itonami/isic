@@ -63,7 +63,7 @@ this repo as the canonical "what is ISIC code X" source. The historical ISIC
 DID and protocol namespaces remain compatibility identities.
 
 Do **not** migrate this actor into `cloud-itonami` — that inverts the
-dependency (consumer → authority). See `CLAUDE.md` for the charter gates.
+dependency (consumer → authority). See `AGENTS.md` for the charter gates.
 
 ## Build artifacts
 
