@@ -7,11 +7,11 @@
       "enabled": true,
       "enabled_toolsets": null,
       "id": "31bee768ad94",
-      "model": "murakumo/free",
+      "model": null,
       "name": "itonami-isic-n-scout",
       "no_agent": false,
       "prompt": "Read SOUL.md. If the evidence script printed no THROTTLED/[SILENT] banner, report ONE finding per the report format: propose at most one migration slice for the frontier actor, written to workspace/slices/ and gated via amu check --jvm-free. Do not merge or force-push.",
-      "provider": "murakumo",
+      "provider": null,
       "schedule": {
         "kind": "cron",
         "expr": "28 */6 * * *",
@@ -20,7 +20,7 @@
       "script": "isicN_evidence.py",
       "skill": null,
       "skills": [],
-      "workdir": "~/github/com-junkawasaki"
+      "workdir": null
     }
   ]
 }
