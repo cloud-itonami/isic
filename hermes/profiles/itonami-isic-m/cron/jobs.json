@@ -17,7 +17,7 @@
         "expr": "37 */6 * * *",
         "display": "37 */6 * * *"
       },
-      "script": "isicM_evidence.py",
+      "script": "isicM_evidence.hy",
       "skill": null,
       "skills": [],
       "workdir": null
