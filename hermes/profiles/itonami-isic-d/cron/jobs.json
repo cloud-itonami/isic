@@ -17,7 +17,7 @@
         "expr": "12 20 * * *",
         "display": "12 20 * * *"
       },
-      "script": "isicD_evidence.py",
+      "script": "isicD_evidence.hy",
       "skill": null,
       "skills": [],
       "workdir": null
